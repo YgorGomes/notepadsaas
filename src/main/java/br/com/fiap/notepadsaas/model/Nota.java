@@ -10,6 +10,7 @@ public class Nota {
 	private String id;
 	private String titulo;
 	private String texto;
+	private String teste;
 	
 	
 	
