@@ -2,15 +2,14 @@ package br.com.fiap.notepadsaas.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.fiap.notepadsaas.model.Nota;
 import br.com.fiap.notepadsaas.repository.NotaRepository;
 
 @RestController
+@CrossOrigin
+@RequestMapping(value="/nota")
 public class NotaController {
 	
 	private NotaRepository notaRepository;
@@ -19,12 +18,18 @@ public class NotaController {
 		this.notaRepository = notaRepository;
 	}
 	
-	@GetMapping(value = "/")
-	public List<Nota> fingAll(){
+	@GetMapping()
+	public List<Nota> findAll(){
 		return notaRepository.findAll();
 	}
+
+	@GetMapping("titulo/{titulo}")
+	public List<Nota> findByTitulo(
+			@PathVariable(value = "titulo") String q){
+		return notaRepository.findByTitulo(q);
+	}
 	
-	@PostMapping(value= "/")
+	@PostMapping()
 	public void save(@RequestBody Nota nota){
 		notaRepository.save(nota);
 	}
